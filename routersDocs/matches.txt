@@ -1,0 +1,160 @@
+// MATCHES ROUTES
+
+/crearpartido
+post:
+summary: crea un partido nuevo una vez llenado el formulario
+responses:
+        201:
+ *      description: partido creado.
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              data:
+ *                type: object
+ *                properties:
+ *                  matchType:
+ *                    type: number
+ *                    description: si es un partido de futbol 5, 6, 7, 8, 9, 10 o 11.
+ *                    example: 7
+ *                    min: 5
+ *                    max: 11                    
+ *                  category:
+ *                    type: string
+ *                    description: si es masculino, mixto o femenino.
+ *                    example: mixto                    
+ *                  address:
+ *                    type: string
+ *                    description: la direccion del evento.
+ *                    example: bermudez 2276                   
+ *                  fieldName:
+ *                    (opcional)
+ *                    type: string
+ *                    description: el nombre de la cancha.
+ *                    example: gevp   
+ *                  date:
+ *                    type: datetime-local
+ *                    description: la fecha del evento.
+ *                    example: 2023-06-25T14:30   
+ *                  playersNeeded:
+ *                    type: number
+ *                    description: cantidad de jugadores que hacen falta.
+ *                    example: 3
+ *                    max: totalPlayers   
+ *                  matchExtraInfo:
+ *                    (opcional)
+ *                    type: string
+ *                    description: informacion extra necesaria para el partido.
+ *                    example: la cancha es abajo de una autopista   
+ *                  priceByPlayer:
+ *                    (opcional)
+ *                    type: number
+ *                    description: cuanto debe abonar cada jugador.
+ *                    example: 500   
+ 
+
+ /partidos
+ get:
+ summary: devuelve todos los partidos creados que esten dentro del radio de distancia elegido por el usuario
+ responses:
+        200:
+  *      description: array de los partidos.
+  *      content:
+  *        application/json:
+  *          schema:
+  *            type: object
+  *            responses:
+  *              data:
+  *                type: object
+  *                properties:
+  *                  id:
+  *                    type: string
+  *                    description: id del usuario.
+  *                    example: 5294e1005e953e0dcbc515db
+  *                  matchType:
+  *                    type: number
+  *                    description: si es un partido de futbol 5, 6, 7, 8, 9, 10 o 11.
+  *                    example: 7
+  *                    min: 5
+  *                    max: 11                    
+  *                  category:
+  *                    type: string
+  *                    description: si es masculino, mixto o femenino.
+  *                    example: mixto                    
+  *                  address:
+  *                    type: string
+  *                    description: la direccion del evento.
+  *                    example: bermudez 2276                   
+  *                  fieldName:
+  *                    type: string
+  *                    description: el nombre de la cancha.
+  *                    example: gevp   
+  *                  date:
+  *                    type: datetime-local
+  *                    description: la fecha del evento.
+  *                    example: 2023-06-25T14:30   
+  *                  playersNeeded:
+  *                    type: number
+  *                    description: cantidad de jugadores que hacen falta.
+  *                    example: 3
+  *                    max: totalPlayers   
+  *                  matchExtraInfo:
+  *                    type: string
+  *                    description: informacion extra necesaria para el partido.
+  *                    example: la cancha es abajo de una autopista   
+  *                  priceByPlayer:
+  *                    type: number
+  *                    description: cuanto debe abonar cada jugador.
+  *                    example: 500   
+  *                  location:
+  *                    type: [number]
+  *                    description: coordenadas del partido.
+  *                    example: [-34,6767447, -50,655646]   
+  *                  host:
+  *                    type: object
+  *                    description: objeto de usuario que es el host del partido.
+  *                    example: userSchema   
+  *                  players:
+  *                    type: [object]
+  *                    description: devuelve un array de arrays donde estan los jugadores invitados y los registados, arranca vacio.
+  *                    example: userSchema   
+
+
+/partidos/proximospartidos
+get:
+summary: ordena los partidos creados que esten dentro del radio de distancia elegido por el usuario por fecha mas proxima
+responses:
+       200:
+ *      description: array de los partidos.
+
+ /partidos/categoria/:categoria
+ get:
+summary: filtra los partidos creados que esten dentro del radio de distancia elegido por el usuario por categoria
+responses:
+       200:
+ *      description: array de los partidos.
+
+ /partidos/tipo/:tipo
+ get:
+ summary: filtra los partidos creados que esten dentro del radio de distancia elegido por el usuario por tipo
+ responses:
+        200:
+  *      description: array de los partidos.
+
+
+  /cancelarpartido/:id
+  post:
+  summary: elimina un partido de la base de datos
+  responses:
+         200:
+   *      description: partido cancelado.
+   *      pasar el id del partido a cancelar por parametros.
+
+   /postergarpartido/:id
+   post:
+   summary: actualiza la fecha de un partido en la base de datos
+   responses:
+          200:
+    *      description: partido postergado.
+    *      pasar el id del partido a postergar por parametros y la nueva fecha por el body.

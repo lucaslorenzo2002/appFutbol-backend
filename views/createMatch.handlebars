@@ -1,0 +1,20 @@
+<h1>crear partido</h1>
+<form action="/api/crearpartido" method="post">
+        <h5>tipo de partido</h5>
+    <input type="number" name="matchType" id="">
+        <h5>categoria</h5>
+    <input type="radio" value="masculino" name="category" id="masculino">masculino
+    <input type="radio" value="femenino" name="category" id="femenino">femenino
+    <input type="radio" value="mixto" name="category" id="mixto">mixto
+        <h5>jugadores totales</h5>
+    <input type="number" name="totalPlayers" id="totalPlayers">        
+        <h5>jugadores necesitados</h5>
+    <input type="number" name="playersNeeded" id="playersNeeded">
+        <h5>fecha y hora</h5>
+    <input type="datetime-local" name="date">
+        <h5>ubicacion</h5>
+    <input type="text" name="address" id="address">    
+        <h5>nombre de la cancha(opcional)</h5>
+    <input type="text" name="fieldName" id="fieldName">    
+    <input type="submit" value="crear partido">
+</form>

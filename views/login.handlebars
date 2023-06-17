@@ -1,0 +1,13 @@
+<form action="/api/login" method="post">
+    <div>
+        <h1>iniciar sesion</h1>
+        <label for="">Nombre de usuario</label>
+        <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId" placeholder=""><br>
+        <label for="">Contraseña</label>
+        <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""><br>
+        <input type="submit" value="iniciar sesion">
+    </div>
+</form>
+<form action="/api/auth/facebook" method="get"><input type="submit" value="inicia sesion con facebook"></form>
+<form action="/api/auth/google" method="get"><input type="submit" value="inicia sesion con google"></form>
+<button onclick="location.href='/api/register'">no tienes cuenta? registrate</button>

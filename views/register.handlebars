@@ -1,0 +1,17 @@
+<form action="" method="post">
+<div>
+    <h1>registrate</h1>
+    <label for="">Nombre de usuario</label>
+    <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId" placeholder=""><br>
+    <label for="">Mail </label>
+    <input type="text" class="form-control" name="mail" id="mail" aria-describedby="helpId" placeholder=""><br>
+    <label for="">Contraseña</label>
+    <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder=""><br>
+    <label for="latitude">Latitud:</label>
+    <input type="number" id="latitude" name="latitude" step="any" required>
+    <label for="longitude">Longitud:</label>
+    <input type="number" id="longitude" name="longitude" step="any" required>
+</div>
+<input type="submit" value="registrarse">
+</form>
+<button onclick="location.href='/api/login'">tienes cuenta? inicia sesion</button> 
