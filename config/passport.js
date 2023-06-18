@@ -4,7 +4,7 @@ const localStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const { connection } = require('./mongoConfig');
 const logger = require('../utils/logger');
-const hashPassword = require('../utils/hashing');
+const hash = require('../utils/hashing');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const UsersDAO = require('../database/users');
@@ -26,8 +26,12 @@ passport.use('register', new localStrategy({
 
     const usuario = await usersDAO.getUser(username)
     if(usuario){
-        return done('usuario en uso')
+        return done('nombre de usuario en uso')
     } 
+
+    /* if(usuario.mail === mail){
+        return done('el mail ya esta en uso')
+    } */
 
     if(password.length < 8){
         logger.info('la contrasenia debe tener al menos 8 caracteres');
@@ -37,7 +41,7 @@ passport.use('register', new localStrategy({
     const nuevoUsuario = {
         username,
         mail,
-        password: hashPassword(password),
+        password: hash(password),
         location: {
             type: 'Point',
             coordinates: [parseFloat(longitude), parseFloat(latitude)]

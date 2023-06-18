@@ -4,7 +4,7 @@ const resetPasswordTokenCollection = "resetPasswordTokens";
 
 const resetPasswordTokenSchema = new mongoose.Schema({
     userId:{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "users",
     },

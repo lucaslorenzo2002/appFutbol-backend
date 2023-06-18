@@ -2,10 +2,11 @@ const asyncHandler = require('express-async-handler');
 const passport = require('passport');
 const logger = require('../utils/logger');
 const ResetPasswordToken = require('../schemas/resetPasswordToken');
+const AuthApi = require('../services/auth');
 
 class AuthController{
     constructor(){
-
+        this.authApi = new AuthApi()
     }
 
     getRegistro = asyncHandler(async(req, res) => {
@@ -90,23 +91,7 @@ class AuthController{
     }) 
 
     resetPasswordRequest = asyncHandler(async(req, res) => {
-        const user = await this.UsersDAO.getUserByMail(req.body); //tiene que haber un input con el mail del usuario
-
-        if (!user) {
-        throw new Error("User does not exist");
-        }
-        let token = await ResetPasswordToken.findOne({ userId: user._id });
-        if (token) { 
-            await token.deleteOne()
-        };
-        let resetToken = crypto.randomBytes(32).toString("hex");
-        const hash = await bcrypt.hash(resetToken, 10);
-
-        await new ResetPasswordToken({
-            userId: user._id,
-            token: hash,
-            createdAt: Date.now(),
-        }).save();
+        await this.authApi.resetPasswordRequest(req.body) //tiene que haber un input con el mail del usuario
     }) 
 
     resetPassword = asyncHandler(async(req, res) => {

@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 
-const hashPassword = (password) => {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+const hash = (string) => {
+    return bcrypt.hashSync(string, bcrypt.genSaltSync(10), null)
 }
 
-module.exports = hashPassword
+module.exports = hash
