@@ -3,8 +3,7 @@ const logger = require('./logger');
 
 const sendEmail = async(from, to, subject, message) => {
     const transporter = nodemailer.createTransport({
-        service: "Outlook365",
-        host: "smtp.office365.com",
+        host: process.env.EMAIL_HOST,
         port: 587,
         secure: false,
         secureOptions:{

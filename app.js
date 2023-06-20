@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const RedisStore = require('connect-redis')(session);
 const cors = require('cors');
 const passport = require('passport');
 const swaggerJSDoc = require('swagger-jsdoc');
@@ -25,6 +26,7 @@ const httpServer = new HttpServer(app);
     app.use(express.json())
     app.use(cors())
     app.use(session({
+        store: new RedisStore({}),
         secret: 'secret',
         resave: true,
         saveUninitialized: true
