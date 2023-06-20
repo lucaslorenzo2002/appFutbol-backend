@@ -21,7 +21,7 @@ class AuthRouter{
 
         authRouter.get('/logout', this.controller.getLogout)
 
-        //authRouter.post('/recuperarpassword', k)
+        authRouter.post('/resetpasswordrequest', this.controller.resetPasswordRequest)
 
         return authRouter
     }

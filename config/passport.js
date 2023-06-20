@@ -29,9 +29,10 @@ passport.use('register', new localStrategy({
         return done('nombre de usuario en uso')
     } 
 
-    /* if(usuario.mail === mail){
+    const userEmail = await usersDAO.getUserByMail(mail)
+    if(userEmail){
         return done('el mail ya esta en uso')
-    } */
+    }
 
     if(password.length < 8){
         logger.info('la contrasenia debe tener al menos 8 caracteres');

@@ -3,6 +3,7 @@ const connection = require('../config/mongoConfig');
 const ResetPasswordToken = require('../schemas/resetPasswordToken');
 const hash = require('../utils/hashing');
 const sendEmail = require('../utils/sendEmail');
+const crypto = require('crypto');
 
 class AuthApi{
     constructor(){
@@ -27,7 +28,7 @@ class AuthApi{
             createdAt: Date.now()
         }).save();
 
-        let resetUrl = `${process.env.URL}/resetpassword/${hashedToken}}`
+        let resetUrl = `${process.env.URL}/resetpassword/${resetToken}}`
 
         let message = `
         <h2>HOLA ${user.username}!</h2>
@@ -43,12 +44,7 @@ class AuthApi{
 
         let subject = `<p>Reset password email</p>`;
 
-        try {
-            await sendEmail(from, to, subject, message)
-            res.status(200).json({success: true, message: 'mail enviado'})
-        } catch (error) {
-            res.status(500).json({success: false, message: 'mail no enviado, probar denuevo'})
-        }
+        await sendEmail(from, to, subject, message)
     }
 }
 

@@ -29,7 +29,7 @@ class AuthController{
                 if (error) {
                     return next(error);
                 }
-                return res.status(201).json({ user });
+                return res.status(201).json({ message: 'usuario registrado' });
             });
             })(req, res, next);
     })  
@@ -54,7 +54,7 @@ class AuthController{
                 if (error) {
                     return next(error);
                 }
-                return res.status(200).json({ user });
+                return res.status(200).json({ message: 'sesion iniciada' });
             });
         })(req, res, next);
     });
@@ -79,7 +79,7 @@ class AuthController{
                 if (error) {
                     return next(error);
                 }
-                return res.status(200).json({ user });
+                return res.status(200).json({ message: 'sesion iniciada con google' });
             });
         })(req, res, next);
     });
@@ -91,7 +91,12 @@ class AuthController{
     }) 
 
     resetPasswordRequest = asyncHandler(async(req, res) => {
-        await this.authApi.resetPasswordRequest(req.body) //tiene que haber un input con el mail del usuario
+        await this.authApi.resetPasswordRequest(req.body.mail)
+        try {
+            res.status(200).json({success: true, message: 'mail enviado'})
+        } catch (error) {
+            res.status(500).json({success: false, message: 'mail no enviado, probar denuevo'})
+        }
     }) 
 
     resetPassword = asyncHandler(async(req, res) => {
