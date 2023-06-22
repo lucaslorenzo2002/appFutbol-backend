@@ -24,6 +24,7 @@ const PORT = envConfig.PORT;
 
 const server = httpServer.listen(PORT, () => {
         console.log(`App listening on port ${PORT}, ${envConfig.NODE_ENV}`);
+        res.send("HOLA")
 });
 
 server.on('error', err => console.log(err))
