@@ -11,7 +11,7 @@ class MatchesRouter{
 
         matchesRouter.get('/partidos', this.controller.getMatches)
 
-        matchesRouter.get('/', (req,res)=>{res.send("HGOLA")})
+        matchesRouter.get('/', (req,res)=>{res.send("FUNCIONO")})
 
         return matchesRouter
     }
