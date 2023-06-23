@@ -7,6 +7,10 @@ class AuthRouter{
     }
 
     start(){
+        authRouter.get('/', (res,req)=>{
+            res.send("HOLA A TODOS")
+        })
+
         authRouter.get('/register', this.controller.getRegistro)
         authRouter.post('/register', this.controller.postRegistro)
 
