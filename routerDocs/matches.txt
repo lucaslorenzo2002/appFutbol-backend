@@ -1,4 +1,4 @@
-// MATCHES ROUTES
+/ MATCHES ROUTES
 
 /crearpartido
 post:
@@ -119,42 +119,3 @@ responses:
   *                    type: [object]
   *                    description: devuelve un array de arrays donde estan los jugadores invitados y los registados, arranca vacio.
   *                    example: userSchema   
-
-
-/partidos/proximospartidos
-get:
-summary: ordena los partidos creados que esten dentro del radio de distancia elegido por el usuario por fecha mas proxima
-responses:
-       200:
- *      description: array de los partidos.
-
- /partidos/categoria/:categoria
- get:
-summary: filtra los partidos creados que esten dentro del radio de distancia elegido por el usuario por categoria
-responses:
-       200:
- *      description: array de los partidos.
-
- /partidos/tipo/:tipo
- get:
- summary: filtra los partidos creados que esten dentro del radio de distancia elegido por el usuario por tipo
- responses:
-        200:
-  *      description: array de los partidos.
-
-
-  /cancelarpartido/:id
-  post:
-  summary: elimina un partido de la base de datos
-  responses:
-         200:
-   *      description: partido cancelado.
-   *      pasar el id del partido a cancelar por parametros.
-
-   /postergarpartido/:id
-   post:
-   summary: actualiza la fecha de un partido en la base de datos
-   responses:
-          200:
-    *      description: partido postergado.
-    *      pasar el id del partido a postergar por parametros y la nueva fecha por el body.
