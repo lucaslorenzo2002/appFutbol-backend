@@ -1,5 +1,5 @@
 const express = require('express');
-const session = require('express-session');
+const session = require('cookie-session');
 const path = require('path');
 const cors = require('cors');
 const passport = require('passport');
@@ -12,12 +12,7 @@ const app = express();
 const httpServer = new HttpServer(app);
 
     require('dotenv').config()
-    require('./config/passport')
-
-    //HANDLEBARS
-    const exphbs = require('express-handlebars');
-    app.engine('handlebars', exphbs.engine())
-    app.set('view engine', 'handlebars')
+    // require('./config/passport')
 
     //MIDDLEWARES
     app.use(express.static(path.join(__dirname, 'public')))
