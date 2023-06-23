@@ -7,7 +7,7 @@ class AuthRouter{
     }
 
     start(){
-        authRouter.get('/', (res,req)=>{
+        authRouter.get('/', (req,res)=>{
             res.send("HOLA A TODOS")
         })
 
