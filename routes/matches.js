@@ -8,6 +8,10 @@ class MatchesRouter{
     }
 
     start(){
+        matchesRouter.get('/', (req,res)=>{
+            res.send("HOLA A TODOS")
+        })
+
         matchesRouter.post('/crearpartido', authMiddleware, this.controller.createMatch)
 
         matchesRouter.get('/partidos', authMiddleware, this.controller.getMatches)

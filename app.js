@@ -35,20 +35,20 @@ const httpServer = new HttpServer(app);
     const specs = swaggerJSDoc(options);
 
     //RUTAS
-    const AuthRouter  = require('./routes/auth');
+    // const AuthRouter  = require('./routes/auth');
     const MatchesRouter = require('./routes/matches');
-    const SchedulesRouter = require('./routes/schedules');
-    const UsersRouter = require('./routes/users');
+    // const SchedulesRouter = require('./routes/schedules');
+    // const UsersRouter = require('./routes/users');
 
-    const authRouter = new AuthRouter();
+    // const authRouter = new AuthRouter();
     const matchesRouter = new MatchesRouter();
-    const schedulesRouter = new SchedulesRouter();
-    const usersRouter = new UsersRouter();
+    // const schedulesRouter = new SchedulesRouter();
+    // const usersRouter = new UsersRouter();
 
-    app.use('/api', authRouter.start())
+    // app.use('/api', authRouter.start())
     app.use('/api', matchesRouter.start())
-    app.use('/api', schedulesRouter.start())
-    app.use('/api', usersRouter.start())
+    // app.use('/api', schedulesRouter.start())
+    // app.use('/api', usersRouter.start())
 
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs))
 
