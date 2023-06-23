@@ -1,0 +1,70 @@
+// AUTH ROUTES
+
+
+/register
+post:
+summary: crea un usuario nuevo una vez llenado el formulario
+responses:
+        201:
+ *      description: devuelve el usuario creado y guarda la sesion iniciada en session.
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              data:
+ *                type: object
+ *                properties:
+ *                  username:
+ *                    type: string
+ *                    description: el nombre de usuario.
+ *                    example: juancarlos23                 
+ *                  password:
+ *                    type: string
+ *                    description: la contrasenia del usuario.
+ *                    example: sfddfs3434jfds                    
+ *                  gender:
+ *                    type: string
+ *                    description: el genero del usuario.
+ *                    example: femenino                   
+ *                  mail:
+ *                    type: string
+ *                    description: el mail del usuario.
+ *                    example: lucasalorenzo2002@gmail.com  
+          400:
+ *        description: devuelve algun error al crear un usuario      
+
+/login
+post:
+summary: incia sesion una vez llenado el formulario
+responses:
+        201:
+ *      description: devuelve el usuario que inicio sesion y guarda la sesion iniciada en session.
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              data:
+ *                type: object
+ *                properties:
+ *                  username:
+ *                    type: string
+ *                    description: el nombre de usuario.
+ *                    example: juancarlos23                 
+ *                  password:
+ *                    type: string
+ *                    description: la contrasenia del usuario.
+ *                    example: sfddfs3434jfds  
+         400:
+*        description: devuelve algun error al iniciar sesion 
+
+
+/logout
+get:
+summary: borra el usuario guardado en session y cierra la sesion
+responses:
+       200:
+ *      description: sesion cerrada.
+                 
+

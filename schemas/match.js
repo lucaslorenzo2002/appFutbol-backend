@@ -42,7 +42,8 @@ const matchSchema = new mongoose.Schema({
     },
     playersNeeded:{
         type: Number,
-        required: true
+        required: true,
+        max: '$totalPlayers'
     },
     players:[{
         guests:[{
