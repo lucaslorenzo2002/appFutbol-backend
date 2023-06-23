@@ -11,10 +11,8 @@ class AuthRouter{
             res.send("HOLA A TODOS")
         })
 
-        authRouter.get('/register', this.controller.getRegistro)
         authRouter.post('/register', this.controller.postRegistro)
 
-        authRouter.get('/login', this.controller.getLogin)
         authRouter.post('/login', this.controller.postLogin)
 
         authRouter.get('/auth/facebook', this.controller.getLoginFacebook)

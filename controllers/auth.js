@@ -9,14 +9,6 @@ class AuthController{
         this.authApi = new AuthApi()
     }
 
-    getRegistro = asyncHandler(async(req, res) => {
-        try {
-            res.render('register')
-        } catch (error) {
-            logger.info(error)
-        }
-    })
-
     postRegistro = asyncHandler(async(req, res, next) => {
         passport.authenticate('register', function(err, user, info) {
             if (err) { 
@@ -33,14 +25,6 @@ class AuthController{
             });
             })(req, res, next);
     })  
-
-    getLogin = asyncHandler(async(req, res) => {
-        try {
-            res.render('login')
-        } catch (error) {
-            logger.info(error)
-        }
-    })
 
     postLogin = asyncHandler(async (req, res, next) => {
         passport.authenticate('login', (err, user, info) => {
