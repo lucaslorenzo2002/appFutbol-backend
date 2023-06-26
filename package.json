@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node server.js",
+    "start": "node server.js",
     "dev": "cross-env NODE_ENV=development nodemon server.js"
   },
   "keywords": [],
@@ -39,6 +39,10 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "mongodb-memory-server": "^8.12.2",
     "nodemon": "^2.0.22"
   }
 }
