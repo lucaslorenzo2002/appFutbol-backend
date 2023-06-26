@@ -23,16 +23,12 @@ const httpServer = new HttpServer(app);
     app.use(express.static(path.join(__dirname, 'public')))
     app.use(express.urlencoded({extended: true}))
     app.use(express.json())
-    const corsOptions = {
-        origin: (origin, callback) => {
-          callback(null, true);
-        },
+    app.use(cors({
+        origin: "*",
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         allowedHeaders: ["Access-Control-Allow-Origin", "Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
         credentials: true
-      };
-      
-      app.options('*', cors(corsOptions));
+    }))
     app.use(session({
         secret: 'secret',
         resave: true,
