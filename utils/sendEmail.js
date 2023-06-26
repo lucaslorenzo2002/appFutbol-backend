@@ -30,7 +30,7 @@ const sendEmail = async(from, to, subject, message) => {
         if(err){
             logger.info('hubo un error ' + err);
         }else{
-            logger.info(info);
+            logger.info(info,"HOLA");
         }
     })
 }
