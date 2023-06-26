@@ -36,10 +36,13 @@ const httpServer = new HttpServer(app);
 
     //RUTAS
     const MatchesRouter = require('./routes/matches');
+    const AuthRouter  = require('./routes/auth');
 
     const matchesRouter = new MatchesRouter();
+    const authRouter = new AuthRouter();
 
     app.use('/api', matchesRouter.start())
+    app.use('/api', authRouter.start())
 
     //app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs))
 
