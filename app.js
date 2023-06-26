@@ -23,7 +23,9 @@ const httpServer = new HttpServer(app);
     app.use(express.static(path.join(__dirname, 'public')))
     app.use(express.urlencoded({extended: true}))
     app.use(express.json())
-    app.use(cors())
+    app.use(cors({
+        origin: "*",
+    }))
     app.use(session({
         secret: 'secret',
         resave: true,
@@ -33,7 +35,7 @@ const httpServer = new HttpServer(app);
     app.use(passport.session())
 
 
-    
+
     //const specs = swaggerJSDoc(options);
 
     //RUTAS
