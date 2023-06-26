@@ -12,7 +12,7 @@ const app = express();
 const httpServer = new HttpServer(app);
 
     require('dotenv').config()
-    //require('./config/passport')
+    require('./config/passport')
 
     //HANDLEBARS
     const exphbs = require('express-handlebars');
