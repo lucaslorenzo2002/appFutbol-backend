@@ -32,6 +32,8 @@ const httpServer = new HttpServer(app);
     app.use(passport.initialize())
     app.use(passport.session())
 
+
+    
     //const specs = swaggerJSDoc(options);
 
     //RUTAS
