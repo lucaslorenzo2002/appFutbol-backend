@@ -48,7 +48,7 @@ class AuthController{
                 return next(err);
             }
             if (!user) {
-                return res.status(401).json({ message: info.message, req:req });
+                return res.status(401).json({ message: info.message, req:JSON.stringify(req) });
             }
             req.login(user, (error) => {
                 if (error) {
