@@ -59,7 +59,6 @@ passport.use('register', new localStrategy({
 passport.use('login', new localStrategy({ 
     passReqToCallback: true 
 },  async(req, username, password, done) => {
-        alert(username,password)
         if(!username || !password){
             return done('por favor complete todos los campos')
         }

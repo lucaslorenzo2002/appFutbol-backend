@@ -43,6 +43,7 @@ class AuthController{
     })
 
     postLogin = asyncHandler(async (req, res, next) => {
+        console.log(req.body)
         passport.authenticate('login', (err, user, info) => {
             if (err) {
                 return next(err);
