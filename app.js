@@ -39,12 +39,15 @@ const httpServer = new HttpServer(app);
     //RUTAS
     const MatchesRouter = require('./routes/matches');
     const AuthRouter  = require('./routes/auth');
+    const UsersRouter  = require('./routes/users');
 
     const matchesRouter = new MatchesRouter();
     const authRouter = new AuthRouter();
+    const usersRouter = new UsersRouter();
 
     app.use('/api', matchesRouter.start())
     app.use('/api', authRouter.start())
+    app.use('/api', usersRouter.start())
 
     //app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs))
 
