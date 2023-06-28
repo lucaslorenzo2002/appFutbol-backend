@@ -43,12 +43,13 @@ class AuthController{
     })
 
     postLogin = asyncHandler(async (req, res, next) => {
+        console.log(req.body)
         passport.authenticate('login', (err, user, info) => {
             if (err) {
                 return next(err);
             }
             if (!user) {
-                return res.status(401).json({ message: info.message, req:JSON.stringify(req) });
+                return res.status(401).json({ message: info.message });
             }
             req.login(user, (error) => {
                 if (error) {
