@@ -23,6 +23,7 @@ class MatchesController{
     })
 
     getMatches = asyncHandler(async(req, res) => {
+        console.log(req.body)
         try {
             const matches = await this.matchesApi.getMatches()
             res.json({matches}).status(200)
