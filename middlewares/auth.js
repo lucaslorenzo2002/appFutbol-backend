@@ -3,7 +3,7 @@ const authMiddleware = (req, res, next) => {
         
         next()
     }else{
-        res.json({error: ''})
+        res.json({error: 'Error de autenticacion'})
     }
 }
 
