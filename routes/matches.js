@@ -1,4 +1,5 @@
 const MatchesController = require('../controllers/matches');
+const authMiddleware = require('../middlewares/auth');
 const matchesRouter = require('./router');
 
 class MatchesRouter{
@@ -7,11 +8,9 @@ class MatchesRouter{
     }
 
     start(){
-        matchesRouter.post('/crearpartido', this.controller.createMatch)
+        matchesRouter.post('/crearpartido',authMiddleware, this.controller.createMatch)
 
-        matchesRouter.get('/partidos', this.controller.getMatches)
-
-        matchesRouter.get('/', (req,res)=>{res.send("FUNCIONO")})
+        matchesRouter.get('/partidos',authMiddleware, this.controller.getMatches)
 
         return matchesRouter
     }

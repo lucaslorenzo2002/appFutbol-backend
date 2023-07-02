@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const logger = require('../utils/logger');
-const ResetPasswordToken = require('../schemas/resetPasswordToken');
 const AuthApi = require('../services/auth');
 
 class AuthController{
@@ -25,11 +25,13 @@ class AuthController{
             if (!user) {
                 return res.status(400).json({ message: info.message });
             }
-            req.login(user, (error) => {
-                if (error) {
-                    return next(error);
-                }
-                return res.status(201).json({ message: 'usuario registrado' });
+            req.login(user,
+                { session: false },
+                async (error) => {
+                    if (error) return next(error);              
+                    const token = jwt.sign({ _id: user._id}, process.env.JWT_SECRET);
+    
+                    return res.status(201).json({ message: 'usuario registrado', user: req.user, token: `${token}` });
             });
             })(req, res, next);
     })  
@@ -43,7 +45,6 @@ class AuthController{
     })
 
     postLogin = asyncHandler(async (req, res, next) => {
-        console.log(req.body)
         passport.authenticate('login', (err, user, info) => {
             if (err) {
                 return next(err);
@@ -51,12 +52,13 @@ class AuthController{
             if (!user) {
                 return res.status(401).json({ message: info.message });
             }
-            req.login(user, (error) => {
-                if (error) {
-                    return next(error);
-                }
-                return res.status(200).json({ message: 'sesion iniciada' });
-            });
+            req.login(user,
+                { session: false },
+                async (error) => {
+                    if (error) return next(error)            
+                    const token = jwt.sign({ _id: user._id}, process.env.JWT_SECRET);
+                    return res.status(201).json({ message: 'sesion iniciada', token: `${token}` });
+                });
         })(req, res, next);
     });
 
@@ -76,12 +78,13 @@ class AuthController{
             if (!user) {
                 return res.status(401).json({ message: info.message });
             }
-            req.login(user, (error) => {
-                if (error) {
-                    return next(error);
-                }
-                return res.status(200).json({ message: 'sesion iniciada con google' });
-            });
+            req.login(user,
+                { session: false },
+                async (error) => {
+                    if (error) return next(error)            
+                    const token = jwt.sign({ _id: user._id}, process.env.JWT_SECRET);
+                    return res.status(201).json({ message: 'sesion iniciada con google', token: `${token}` });
+                });
         })(req, res, next);
     });
     
