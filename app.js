@@ -45,14 +45,17 @@ const httpServer = new HttpServer(app);
     const MatchesRouter = require('./routes/matches');
     const AuthRouter  = require('./routes/auth');
     const UsersRouter  = require('./routes/users');
+    const SchedulesRouter  = require('./routes/schedules');
 
     const matchesRouter = new MatchesRouter();
     const authRouter = new AuthRouter();
     const usersRouter = new UsersRouter();
+    const schedulesRouter = new SchedulesRouter();
 
     app.use('/api', matchesRouter.start())
     app.use('/api', authRouter.start())
     app.use('/api', usersRouter.start())
+    app.use('/api', schedulesRouter.start())
 
     //app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs))
 
