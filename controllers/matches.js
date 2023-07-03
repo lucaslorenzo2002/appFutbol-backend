@@ -7,18 +7,18 @@ class MatchesController{
     }
 
     createMatch = asyncHandler(async(req, res) => {
-        try {            
-            /* const coordinates = await geoRequest(req.body.address);
+        try {           
+            const coordinates = await geoRequest(req.body.address);
             req.body.location = {
                 type: 'Point',
                 coordinates
-            }; */
+            }; 
             
             await this.matchesApi.createMatch(req.body);
 
-            res.json({msg: 'partido creado'}).status(200)
+            res.json({success: true, message: 'partido creado'}).status(200)
         } catch (error) {
-            res.json({error}).status(500)
+            res.json({success: false, error}).status(500)
         }
     })
 
