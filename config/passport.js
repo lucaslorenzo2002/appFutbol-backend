@@ -17,7 +17,7 @@ const schedulesDAO = new SchedulesDAO(connection);
 passport.use('register', new localStrategy({
     passReqToCallback: true
 }, async(req, username, password, done) => {
-    const {mail, latitude, longitude, gender} = req.body
+    const {mail, gender} = req.body
 
     if( !username || !mail || !password ){
         logger.info('completa todos los campos');
@@ -43,10 +43,6 @@ passport.use('register', new localStrategy({
         username,
         mail,
         password: hash(password),
-        location: {
-            type: 'Point',
-            coordinates: [parseFloat(longitude), parseFloat(latitude)]
-        },
         gender
     };
 
@@ -74,10 +70,6 @@ passport.use('login', new localStrategy({
             return done('usuario o contrasenia incorrectos')
         } 
 
-       /*  const {latitude, longitude} = req.body;
-
-        await usersDAO.updateUserLocation(usuario._id, [latitude, longitude])
- */
         return done(null, usuario)
     }
 ))
@@ -139,12 +131,10 @@ passport.use(new GoogleStrategy({
             } else {
                 const newUser = new User();
 
-                //hay que ver que devuelve console.log(profile._json.location);
                 newUser.id = profile.id;
                 newUser.token = accessToken;
                 newUser.mail = profile.emails[0].value;
                 newUser.foto = profile.photos[0].value;
-                newUser.location.enum = profile._json.location;
 
                 return newUser.save()
                     .then(newUser => done(null, newUser))
