@@ -15,9 +15,9 @@ class SchedulesController{
     getSchedule = asyncHandler(async(req, res) => {
         try {            
             const schedule = await this.schedulesApi.getSchedule(req.user._id);
-            res.json({data: schedule}).status(200)
+            res.json({success: true, data: schedule}).status(200)
         } catch (error) {
-            res.json({error}).status(500)
+            res.json({message: error}).status(500)
         }
     })
 
@@ -25,14 +25,14 @@ class SchedulesController{
         try {            
             const schedule = await this.schedulesApi.getSchedule(req.user._id);
             if(req.params.listademispartidos === 'matchesashost'){
-                res.json({data: schedule.matchesashost}).status(200)
+                res.json({success: true, data: schedule.matchesashost}).status(200)
             }else if(req.params.listademispartidos === 'matchesasaplayer'){
-                res.json({data: schedule.matchesasaplayer}).status(200)
+                res.json({success: true, data: schedule.matchesasaplayer}).status(200)
             }else if(req.params.listademispartidos === 'completedmatches'){
-                res.json({data: schedule.completedmatches}).status(200)
+                res.json({success: true, data: schedule.completedmatches}).status(200)
             }
         } catch (error) {
-            res.json({error}).status(500)
+            res.json({success: false, message: error}).status(500)
         }
     })
 
@@ -40,12 +40,12 @@ class SchedulesController{
         try {            
             const match = await this.schedulesApi.getMatchFromSchedule(req.user._id, req.params.listademispartidos);
             const matchData = match[req.params.listademispartidos].find((m) => m._id.toString() === req.params.partidoid);
-            res.json({data: matchData}).status(200)
+            res.json({success: true, data: matchData}).status(200)
         } catch (error) {
-            res.json({error}).status(500)
+            res.json({success: false, message: error}).status(500)
         }
     })
-/* */
+
     getNearUsers = asyncHandler(async(req, res) => {
         try {            
             const match = await this.matchesApi.getMatchById(req.params.partidoid);
@@ -56,9 +56,9 @@ class SchedulesController{
                     nearUsers.push(users[i]);
                 }
             }  
-            res.json({data: nearUsers}).status(200)
+            res.json({success: true, data: nearUsers}).status(200)
         } catch (error) {
-            res.json({error}).status(500)
+            res.json({success: false, message: error}).status(500)
         }
     })
 
