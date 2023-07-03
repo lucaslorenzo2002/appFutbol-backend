@@ -26,6 +26,10 @@ class UsersApi{
         await this.matchesDAO.addRegisteredUserToMatch(matchId, userId)
         await this.schedulesDAO.addMatchAsAPlayer(userId, matchId)
     }
+
+    async updateUserData(userId, username, photo, maxDistance, age, gender, position){
+        return await this.updateUserData(userId, username, photo, maxDistance, age, gender, position)
+    }
 }
 
 module.exports = UsersApi

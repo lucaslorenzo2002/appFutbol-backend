@@ -77,6 +77,14 @@ class UsersDAO{
             logger.info(err);
         }
     }
+
+    async updateUserData(userId, username, photo, maxDistance, age, gender, position){
+        try{
+            return await User.findByIdAndUpdate(userId, {username, photo, maxDistance, age, gender, position})
+        }catch(err){
+            logger.info(err);
+        }
+    }
 }
 
 module.exports = UsersDAO

@@ -14,11 +14,6 @@ const httpServer = new HttpServer(app);
     require('dotenv').config()
     require('./config/passport')
 
-    //HANDLEBARS
-    const exphbs = require('express-handlebars');
-    app.engine('handlebars', exphbs.engine())
-    app.set('view engine', 'handlebars')
-
     //MIDDLEWARES
     app.use(express.static(path.join(__dirname, 'public')))
     app.use(express.urlencoded({extended: true}))

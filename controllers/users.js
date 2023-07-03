@@ -34,6 +34,16 @@ class UsersController{
         }
     })
 
+    updateUserData = asyncHandler(async(req, res) => {
+        const{username, photo, maxDistance, age, gender, position} = req.body;
+        try {            
+            const user = await this.usersApi.updateUserData(req.user._id, username, photo, maxDistance, age, gender, position);
+            res.json({data: user}).status(200)
+        } catch (error) {
+            res.json({error}).status(500)
+        }
+    })
+
     aceptMatchInvitation = asyncHandler(async(req, res) => {
         await this.usersApi.aceptMatchInvitation(req.params.partidoid, req.params.jugadorid)
         try {            

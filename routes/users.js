@@ -11,6 +11,7 @@ class UsersRoutes{
         usersRouter.get('/jugadores', authMiddleware, this.controller.getAllUsers)
         usersRouter.get('/jugadores/:id', authMiddleware, this.controller.getUserById)
         usersRouter.get('/miperfil', authMiddleware, this.controller.getMyProfile)
+        usersRouter.post('/actualizarmiperfil', authMiddleware, this.controller.updateUserData)
         usersRouter.post('/aceptarinvitacionapartido/:partidoid/:usuarioid', this.controller.aceptMatchInvitation)
         usersRouter.post('/rechazarinvitacionapartido', this.controller.declineMatchInvitation)
 
