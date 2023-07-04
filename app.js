@@ -3,9 +3,7 @@ const session = require('cookie-session');
 const path = require('path');
 const cors = require('cors');
 const passport = require('passport');
-//const swaggerJSDoc = require('swagger-jsdoc');
-//const swaggerUi = require('swagger-ui-express');
-//const options = require('./swaggerOptions');
+const morgan = require('morgan');
 const{ Server: HttpServer } = require('http');
 
 const app = express(); 
@@ -18,6 +16,7 @@ const httpServer = new HttpServer(app);
     app.use(express.static(path.join(__dirname, 'public')))
     app.use(express.urlencoded({extended: true}))
     app.use(express.json())
+    app.use(morgan('dev'))
     app.use(session({
         secret: 'secret',
         resave: true,
@@ -33,24 +32,24 @@ const httpServer = new HttpServer(app);
     app.use(passport.session())
 
 
-
-    //const specs = swaggerJSDoc(options);
-
     //RUTAS
     const MatchesRouter = require('./routes/matches');
     const AuthRouter  = require('./routes/auth');
     const UsersRouter  = require('./routes/users');
     const SchedulesRouter  = require('./routes/schedules');
+    const NotificationsRouter  = require('./routes/notifications');
 
     const matchesRouter = new MatchesRouter();
     const authRouter = new AuthRouter();
     const usersRouter = new UsersRouter();
     const schedulesRouter = new SchedulesRouter();
+    const notificationsRouter = new NotificationsRouter();
 
     app.use('/api', matchesRouter.start())
     app.use('/api', authRouter.start())
     app.use('/api', usersRouter.start())
     app.use('/api', schedulesRouter.start())
+    app.use('/api', notificationsRouter.start())
 
     //app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs))
 

@@ -78,9 +78,9 @@ class UsersDAO{
         }
     }
 
-    async updateUserData(userId, username, photo, maxDistance, age, gender, position){
+    async updateUserData(userId, username, photo, maxDistance, age, gender, position, byo){
         try{
-            return await User.findByIdAndUpdate(userId, {username, photo, maxDistance, age, gender, position})
+            return await User.findByIdAndUpdate(userId, {username, photo, maxDistance, age, gender, position, byo})
         }catch(err){
             logger.info(err);
         }

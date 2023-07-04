@@ -1,14 +1,11 @@
 const SchedulesDAO = require('../database/schedules');
-const UsersDAO = require('../database/users');
-const MatchesDAO = require('../database/matches');
+const NotificationsDAO = require('../database/notifications');
 const connection = require('../config/mongoConfig');
-const sendEmail = require('../utils/sendEmail');
 
 class SchedulesApi{
     constructor(){
         this.schedulesDAO = new SchedulesDAO(connection)
-        this.usersDAO = new UsersDAO(connection)
-        this.matchesDAO = new MatchesDAO(connection)
+        this.notificationsDAO = new NotificationsDAO(connection)
     }
 
     async createFeedback(userId){
@@ -31,31 +28,13 @@ class SchedulesApi{
         return await this.schedulesDAO.getOneMatchFromSchedule(userId, listOfMyMatches)
     }
 
-    async sendInvitation(userId, matchId){
-        const user = await this.usersDAO.getUserById(userId);
-        const match = await this.matchesDAO.getMatchById(matchId);
+    async sendInvitation(hostUser, playerUserId){
 
-        let message = `
-        <h2>HOLA ${user.username}!</h2>
-        <p>Te han invitado a jugar un partido el proximo ${match.date}</p>
-        <p>En la calle ${match.address}</p>
-        <p>El organizador del evento es ${match.host.username}</p> 
-        <form action="/api/aceptarinvitacionapartido/${matchId}/${userId}" method="post">
-            <input type="submit" value="quiero jugar">
-        </form>
-        <form action="/api/rechazarinvitacionapartido" method="post">
-            <input type="submit" value="me quedo en casa">
-        </form>
-        <p>Saludos...</p>
-        `
+        const title = 'fuiste invitado a un partido';
+        const message = `${hostUser} te ha invitado a ser parte de un partido epico, te lo vas a perder?`;
+        const to = playerUserId;
 
-        let from = process.env.EMAIL_USER;
-
-        let to = user.mail;
-
-        let subject = "Fuiste invitado a un partido";
-
-        await sendEmail(from, to, subject, message)
+        return await this.notificationsDAO.createNotification(title, message, to)
     }
 }
 

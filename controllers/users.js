@@ -35,9 +35,9 @@ class UsersController{
     })
 
     updateUserData = asyncHandler(async(req, res) => {
-        const{username, photo, maxDistance, age, gender, position} = req.body;
+        const{username, photo, maxDistance, age, gender, position, byo} = req.body;
         try {            
-            const user = await this.usersApi.updateUserData(req.user._id, username, photo, maxDistance, age, gender, position);
+            const user = await this.usersApi.updateUserData(req.user._id, username, photo, maxDistance, age, gender, position, byo);
             res.json({success: true, data: user}).status(200)
         } catch (error) {
             res.json({success: false, message: error}).status(500)

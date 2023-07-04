@@ -63,8 +63,8 @@ class SchedulesController{
     })
 
     sendInvitation = asyncHandler(async(req, res) => {
-        await this.schedulesApi.sendInvitation(req.params.jugadorid, req.params.partidoid)
         try {        
+            await this.schedulesApi.sendInvitation(req.user.username, req.params.jugadorid)
             res.json({success: true, message: 'invitacion enviada con exito'}).status(200)    
         } catch (error) {
             res.json({success: false, message: error}).status(500)

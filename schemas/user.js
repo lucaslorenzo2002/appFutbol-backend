@@ -48,6 +48,10 @@ const userSchema = new mongoose.Schema({
     position:{
         type: String
     },
+    byo:{
+        type: String,
+        max: 300
+    },
     schedule:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schedules'

@@ -42,7 +42,8 @@ class MatchesController{
 
     getMatches = asyncHandler(async(req, res) => {
         try {
-            req.user.location.coordinates === req.body.locationCoordinates; 
+            req.user.location.coordinates[0] === req.body.latitude; 
+            req.user.location.coordinates[1] === req.body.longitude;  
             const matches = await this.matchesApi.getNearMatches(req.user.location.coordinates, req.user.maxDistance);
             res.json({success: true, data: matches}).status(200)
         } catch (error) {
@@ -62,7 +63,8 @@ class MatchesController{
     
     getMatchByCategory = asyncHandler(async(req, res) => {
         try {
-            req.user.location.coordinates === req.body.locationCoordinates; 
+            req.user.location.coordinates[0] === req.body.latitude; 
+            req.user.location.coordinates[1] === req.body.longitude; 
             const matchesFilteredByCategory = await this.matchesApi.getMatchByCategory(req.user.location.coordinates, req.user.maxDistance, req.params.categoria);
             res.json({success: true, data: matchesFilteredByCategory}).status(200)
         } catch (error) {
@@ -72,7 +74,8 @@ class MatchesController{
 
     getMatchByType = asyncHandler(async(req, res) => {
         try {
-            req.user.location.coordinates === req.body.locationCoordinates; 
+            req.user.location.coordinates[0] === req.body.latitude; 
+            req.user.location.coordinates[1] === req.body.longitude; 
             const matchesFilteredByType = await this.matchesApi.getMatchByMatchType(req.user.location.coordinates, req.user.maxDistance, req.params.tipo);
             res.json({success: true, data: matchesFilteredByType}).status(200)
         } catch (error) {
