@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const MatchesApi = require('../services/matches');
 const FeedbacksApi = require('../services/feedbacks');
 const SchedulesApi = require('../services/schedules');
+const NotificationsApi = require('../services/notifications');
 const geoRequest = require('../utils/geoRequest');
 const Match = require('../schemas/match');
 
@@ -10,6 +11,7 @@ class MatchesController{
         this.matchesApi = new MatchesApi()
         this.feedbacksApi = new FeedbacksApi()
         this.schedulesApi = new SchedulesApi()
+        this.notificationsApi = new NotificationsApi()
     }
 
     createMatch = asyncHandler(async(req, res) => {
@@ -79,6 +81,20 @@ class MatchesController{
             req.user.location.coordinates[1] === req.body.longitude; 
             const matchesFilteredByType = await this.matchesApi.getMatchByMatchType(req.user.location.coordinates, req.user.maxDistance, req.params.tipo);
             res.json({success: true, data: matchesFilteredByType}).status(200)
+        } catch (error) {
+            res.json({success: false, message: error}).status(500)
+        }
+    })
+
+    sendRequestToJoinMatch = asyncHandler(async(req, res) => {
+        const partido = await this.matchesApi.getMatchById(req.params.partidoid)
+        const title = 'alguien quiere unirse a tu partido!!'
+        const message = `${req.user.username} esta buscando partido y quiere unirse al tuyo`
+        const to = partido.host
+
+        try {
+            await this.notificationsApi.createNotification(title, message, to)
+            res.json({success: true, message: 'notificacion envida con exito'}).status(200)
         } catch (error) {
             res.json({success: false, message: error}).status(500)
         }

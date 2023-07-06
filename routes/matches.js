@@ -10,6 +10,7 @@ class MatchesRouter{
     start(){
         matchesRouter.post('/crearpartido', authMiddleware, this.controller.createMatch)
         matchesRouter.post('/partidos', authMiddleware, this.controller.getMatches)
+        matchesRouter.post('/solicitudparaunirseapartido', authMiddleware, this.controller.sendRequestToJoinMatch)
         matchesRouter.post('/partidos/proximospartidos', authMiddleware, this.controller.sortMatchesByDate)
         matchesRouter.post('/partidos/categoria/:categoria', authMiddleware, this.controller.getMatchByCategory)
         matchesRouter.post('/partidos/tipo/:tipo', authMiddleware, this.controller.getMatchByType)
