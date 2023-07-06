@@ -8,7 +8,7 @@ class NotificationsDAO{
 
     async createNotification(title, message, to){
             try{
-                return await Notification.create(title, message, to)
+                return await Notification.create({title, message, to})
             }catch(err){
                 logger.info(err)
             }

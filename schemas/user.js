@@ -55,6 +55,10 @@ const userSchema = new mongoose.Schema({
     schedule:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schedules'
+    },
+    friends:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'friends'
     }
 })
 

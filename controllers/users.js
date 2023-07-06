@@ -48,7 +48,7 @@ class UsersController{
     })
 
     aceptMatchInvitation = asyncHandler(async(req, res) => {
-        const jugador = await this.usersApi.getUserById(req.params.jugadorid);
+        const jugador = await this.usersApi.getUserById(req.user._id);
         const partido = await this.matchesApi.getMatchById(req.params.partidoid);
         const title = 'nuevo jugador en tu equipo';
         const message = `${jugador.username} ha aceptado la invitacion a tu partido`
@@ -56,7 +56,7 @@ class UsersController{
         try {            
             await this.usersApi.aceptMatchInvitation(req.params.partidoid, req.params.jugadorid)
             await this.notificationsApi.createNotification(title, message, to)
-            res.json({success: true, message: `user: ${req.params.jugadorid} succesfully join match: ${req.params.partidoid}`}).status(200)
+            res.json({success: true, message: `user: ${req.user.username} succesfully join match: ${req.params.partidoid}`}).status(200)
         } catch (error) {
             res.json({success: false, message: error}).status(500)
         }

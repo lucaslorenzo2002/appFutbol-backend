@@ -38,20 +38,22 @@ const httpServer = new HttpServer(app);
     const UsersRouter  = require('./routes/users');
     const SchedulesRouter  = require('./routes/schedules');
     const NotificationsRouter  = require('./routes/notifications');
+    const FriendsRouter  = require('./routes/friends');
 
     const matchesRouter = new MatchesRouter();
     const authRouter = new AuthRouter();
     const usersRouter = new UsersRouter();
     const schedulesRouter = new SchedulesRouter();
     const notificationsRouter = new NotificationsRouter();
+    const friendsRouter = new FriendsRouter();
 
     app.use('/api', matchesRouter.start())
     app.use('/api', authRouter.start())
     app.use('/api', usersRouter.start())
     app.use('/api', schedulesRouter.start())
     app.use('/api', notificationsRouter.start())
+    app.use('/api', friendsRouter.start())
 
-    //app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs))
 
     //SOCKETS
 

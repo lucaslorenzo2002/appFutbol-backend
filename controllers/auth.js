@@ -99,7 +99,7 @@ class AuthController{
         try {
             res.status(200).json({success: true, message: 'mail enviado'})
         } catch (error) {
-            res.status(500).json({success: false, message: 'mail no enviado, probar denuevo'})
+            res.status(500).json({success: false, message: 'mail no enviado, probar de nuevo'})
         }
     }) 
 

@@ -14,6 +14,9 @@ const usersDAO = new UsersDAO(connection);
 const SchedulesDAO = require('../database/schedules');
 const schedulesDAO = new SchedulesDAO(connection);
 
+const FriendsDAO = require('../database/friends');
+const friendsDAO = new FriendsDAO(connection);
+
 passport.use('register', new localStrategy({
     passReqToCallback: true
 }, async(req, username, password, done) => {
@@ -48,6 +51,7 @@ passport.use('register', new localStrategy({
 
     const mongooseUser = await usersDAO.createUser(nuevoUsuario);
     await schedulesDAO.createSchedule(mongooseUser._id)
+    await friendsDAO.createFriendsList(mongooseUser._id)
 
     done(null, nuevoUsuario)}
 ))

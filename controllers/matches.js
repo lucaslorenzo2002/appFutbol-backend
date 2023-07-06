@@ -41,9 +41,9 @@ class MatchesController{
     })
 
     getMatches = asyncHandler(async(req, res) => {
-        try {
-            req.user.location.coordinates[0] === req.body.latitude; 
-            req.user.location.coordinates[1] === req.body.longitude;  
+        req.user.location.coordinates[0] === req.body.latitude; 
+        req.user.location.coordinates[1] === req.body.longitude; 
+        try { 
             const matches = await this.matchesApi.getNearMatches(req.user.location.coordinates, req.user.maxDistance);
             res.json({success: true, data: matches}).status(200)
         } catch (error) {
@@ -52,8 +52,9 @@ class MatchesController{
     })
 
     sortMatchesByDate = asyncHandler(async(req, res) => {
+        req.user.location.coordinates[0] === req.body.latitude; 
+        req.user.location.coordinates[1] === req.body.longitude; 
         try {
-            req.user.location.coordinates === req.body.locationCoordinates; 
             const matchesSortedByDate = await this.matchesApi.sortMatchByDate(req.user.location.coordinates, req.user.maxDistance);
             res.json({success: true, data: matchesSortedByDate}).status(200)
         } catch (error) {
