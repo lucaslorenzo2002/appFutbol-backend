@@ -59,7 +59,11 @@ const userSchema = new mongoose.Schema({
     friends:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'friends'
-    }
+    },
+    chats:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'chats'
+    }]
 })
 
 

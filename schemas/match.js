@@ -66,6 +66,10 @@ const matchSchema = new mongoose.Schema({
     feedback:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'feedbacks'
+    },
+    matchChat:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'chats'
     }
 })
 

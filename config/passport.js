@@ -46,7 +46,8 @@ passport.use('register', new localStrategy({
         username,
         mail,
         password: hash(password),
-        gender
+        gender,
+        chats: []
     };
 
     const mongooseUser = await usersDAO.createUser(nuevoUsuario);

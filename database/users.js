@@ -70,6 +70,14 @@ class UsersDAO{
         }
     }
 
+    async updateUserChats(userId, chatId){
+        try{
+            return await User.findByIdAndUpdate(userId, {$push :{chats: chatId}})
+        }catch(err){
+            logger.info(err);
+        }
+    }
+
     async updateUserPassword(userId, newPassword){
         try{
             return await User.findByIdAndUpdate(userId, {password: newPassword})

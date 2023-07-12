@@ -39,6 +39,8 @@ const httpServer = new HttpServer(app);
     const SchedulesRouter  = require('./routes/schedules');
     const NotificationsRouter  = require('./routes/notifications');
     const FriendsRouter  = require('./routes/friends');
+    const ChatsRouter  = require('./routes/chats');
+    const MessagesRouter  = require('./routes/messages');
 
     const matchesRouter = new MatchesRouter();
     const authRouter = new AuthRouter();
@@ -46,6 +48,8 @@ const httpServer = new HttpServer(app);
     const schedulesRouter = new SchedulesRouter();
     const notificationsRouter = new NotificationsRouter();
     const friendsRouter = new FriendsRouter();
+    const chatsRouter = new ChatsRouter();
+    const messagesRouter = new MessagesRouter();
 
     app.use('/api', matchesRouter.start())
     app.use('/api', authRouter.start())
@@ -53,8 +57,16 @@ const httpServer = new HttpServer(app);
     app.use('/api', schedulesRouter.start())
     app.use('/api', notificationsRouter.start())
     app.use('/api', friendsRouter.start())
+    app.use('/api', chatsRouter.start())
+    app.use('/api', messagesRouter.start())
 
 
     //SOCKETS
+    const { Server: IOServer } = require('socket.io');
+    const IO = new IOServer(httpServer);
+
+    IO.on('connection', socket => {
+        console.log(`${socket.id} is connected`);
+    })
 
 module.exports = httpServer

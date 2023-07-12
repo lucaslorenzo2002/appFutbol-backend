@@ -27,6 +27,10 @@ class UsersApi{
         await this.schedulesDAO.addMatchAsAPlayer(userId, matchId)
     }
 
+    async updateUserChats(userId, chatId){
+        await this.usersDAO.updateUserChats(userId, chatId)
+    }
+
     async updateUserData(userId, username, photo, maxDistance, age, gender, position, byo){
         return await this.updateUserData(userId, username, photo, maxDistance, age, gender, position, byo)
     }
