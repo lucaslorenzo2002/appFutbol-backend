@@ -25,29 +25,24 @@ class MatchesDAO{
                 }
             },
             {
-                    $lookup: {
-                    from: 'feedbacks', 
-                    localField: 'feedback', 
-                    foreignField: '_id', 
-                    as: 'feedbackData' 
-                }
-            },
-            {
                 $lookup: {
-                    from: 'usuarios',
-                    localField: 'host', 
+                    from: 'users',
+                    localField: 'players',
                     foreignField: '_id',
-                    as: 'hostData' 
+                    as: 'players'
                 }
             },
             {
                 $lookup: {
-                    from: 'usuarios', 
-                    localField: 'players.registeredUsers', 
-                    foreignField: '_id', 
-                    as: 'registeredUsersData' 
+                    from: 'users',
+                    localField: 'host',
+                    foreignField: '_id',
+                    as: 'host'
                 }
-            }          
+            },
+            {
+                $unwind: '$host'
+            }    
         ])
         } catch (err) {
             logger.info(err)
@@ -71,30 +66,26 @@ class MatchesDAO{
                     maxDistance,
                     spherical: true
                 }
-            },{
+            },
+            {
                 $lookup: {
-                from: 'feedbacks', 
-                localField: 'feedback', 
-                foreignField: '_id', 
-                as: 'feedbackData' 
+                    from: 'users',
+                    localField: 'players',
+                    foreignField: '_id',
+                    as: 'players'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'host',
+                    foreignField: '_id',
+                    as: 'host'
+                }
+            },
+            {
+                $unwind: '$host'
             }
-        },
-        {
-            $lookup: {
-                from: 'usuarios',
-                localField: 'host', 
-                foreignField: '_id',
-                as: 'hostData' 
-            }
-        },
-        {
-            $lookup: {
-                from: 'usuarios', 
-                localField: 'players.registeredUsers', 
-                foreignField: '_id', 
-                as: 'registeredUsersData' 
-            }
-        }
         ]).sort({date: 1})
         }catch(err){
             logger.info(err)
@@ -112,29 +103,24 @@ class MatchesDAO{
                 }
             },
             {
-                    $lookup: {
-                    from: 'feedbacks', 
-                    localField: 'feedback', 
-                    foreignField: '_id', 
-                    as: 'feedbackData' 
-                }
-            },
-            {
                 $lookup: {
-                    from: 'usuarios',
-                    localField: 'host', 
+                    from: 'users',
+                    localField: 'players',
                     foreignField: '_id',
-                    as: 'hostData' 
+                    as: 'players'
                 }
             },
             {
                 $lookup: {
-                    from: 'usuarios', 
-                    localField: 'players.registeredUsers', 
-                    foreignField: '_id', 
-                    as: 'registeredUsersData' 
+                    from: 'users',
+                    localField: 'host',
+                    foreignField: '_id',
+                    as: 'host'
                 }
-            } 
+            },
+            {
+                $unwind: '$host'
+            }
         ])
         const result = await aggregation.exec();
         return result.filter(item => item.category === category);
@@ -152,30 +138,26 @@ class MatchesDAO{
                     maxDistance,
                     spherical: true
                 }
-            },{
+            },
+            {
                 $lookup: {
-                from: 'feedbacks', 
-                localField: 'feedback', 
-                foreignField: '_id', 
-                as: 'feedbackData' 
+                    from: 'users',
+                    localField: 'players',
+                    foreignField: '_id',
+                    as: 'players'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'host',
+                    foreignField: '_id',
+                    as: 'host'
+                }
+            },
+            {
+                $unwind: '$host'
             }
-        },
-        {
-            $lookup: {
-                from: 'usuarios',
-                localField: 'host', 
-                foreignField: '_id',
-                as: 'hostData' 
-            }
-        },
-        {
-            $lookup: {
-                from: 'usuarios', 
-                localField: 'players.registeredUsers', 
-                foreignField: '_id', 
-                as: 'registeredUsersData' 
-            }
-        }
         ])
         const result = await aggregation.exec();
 
@@ -195,7 +177,7 @@ class MatchesDAO{
 
     async addRegisteredUserToMatch(id, userId){
         try{
-            return await Match.findByIdAndUpdate(id, {$push: {'players.registeredUsers': userId}})
+            return await Match.findByIdAndUpdate(id, {$push: {players: userId}})
         }catch(err){
             logger.info(err)
         }
@@ -203,7 +185,7 @@ class MatchesDAO{
 
     async cancelMatch(id){
         try{
-            return await Match.deleteOne({_id: id})
+            return await Match.findByIdAndDelete(id)
         }catch(err){
             logger.info(err)
         }

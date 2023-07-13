@@ -16,10 +16,6 @@ class SchedulesApi{
         return await this.schedulesDAO.addMatchAsHost(userId, matchId)
     }
 
-    async addMatchAsAPlayer(userId, matchId){
-        return await this.schedulesDAO.addMatchAsAPlayer(userId, matchId)
-    }
-
     async getSchedule(userId){
         return await this.schedulesDAO.getSchedule(userId)
     }

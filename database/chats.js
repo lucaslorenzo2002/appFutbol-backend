@@ -16,7 +16,7 @@ class ChatsDAO{
 
     async addPlayerToMatchChat(matchId, playerId){
         try{
-            return await MatchChat.updateOne({matchId}, {$push :{participants: playerId}})
+            return await Chat.updateOne({matchId}, {$push :{participants: playerId}})
         }catch(err){
             logger.info(err)
         }

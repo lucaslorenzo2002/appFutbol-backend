@@ -30,10 +30,6 @@ class MatchesApi{
         return await this.MatchesDAO.getMatchById(id)
     }
 
-    async addRegisteredUserToMatch(id, userId){
-        return await this.MatchesDAO.addRegisteredUserToMatch(id, userId)
-    }
-
     async cancelMatch(id){
         return await this.MatchesDAO.cancelMatch(id)
     }

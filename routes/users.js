@@ -13,7 +13,7 @@ class UsersRoutes{
         usersRouter.get('/miperfil', authMiddleware, this.controller.getMyProfile)
         usersRouter.post('/actualizarmiperfil', authMiddleware, this.controller.updateUserData)
         usersRouter.post('/aceptarinvitacionapartido/:partidoid', authMiddleware, this.controller.aceptMatchInvitation)
-        usersRouter.post('/rechazarinvitacionapartido',authMiddleware, this.controller.declineMatchInvitation)
+        usersRouter.post('/rechazarinvitacionapartido/:partidoid',authMiddleware, this.controller.declineMatchInvitation)
 
         return usersRouter
     }

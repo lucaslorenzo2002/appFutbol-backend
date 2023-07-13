@@ -45,13 +45,8 @@ const matchSchema = new mongoose.Schema({
         required: true
     },
     players:[{
-        guests:[{
-            type: String,
-        }],
-        registeredUsers:[{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'users'
-        }]
     }],
     date:{
         type: Date,

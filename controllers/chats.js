@@ -10,7 +10,7 @@ class ChatsController{
 
     createChat = asyncHandler(async(req, res) => {
         try {           
-            const chat = await this.chatsApi.createChat([], [req.user._id, req.params.jugadorid])
+            const chat = await this.chatsApi.createChat(null, [], [req.user._id, req.params.jugadorid])
             const users = await this.usersApi.getAllUsers();
             for (let i = 0; i < users.length; i++) {
                 if( users[i]._id.toString() === req.user._id.toString() || users[i]._id.toString() === req.params.jugadorid ){
