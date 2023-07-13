@@ -3,6 +3,7 @@ const MatchesApi = require('../services/matches');
 const FeedbacksApi = require('../services/feedbacks');
 const SchedulesApi = require('../services/schedules');
 const NotificationsApi = require('../services/notifications');
+const ChatsApi = require('../services/chats');
 const geoRequest = require('../utils/geoRequest');
 const Match = require('../schemas/match');
 
@@ -12,6 +13,7 @@ class MatchesController{
         this.feedbacksApi = new FeedbacksApi()
         this.schedulesApi = new SchedulesApi()
         this.notificationsApi = new NotificationsApi()
+        this.chatsApi = new ChatsApi()
     }
 
     createMatch = asyncHandler(async(req, res) => {
@@ -26,6 +28,7 @@ class MatchesController{
             const match = await this.matchesApi.createMatch(req.body);
             await this.feedbacksApi.createFeedback(match._id);
             await this.schedulesApi.addMatchAsHost(req.user._id, match._id)
+            await this.chatsApi.createChat(match._id, [], req.user._id)
 
             res.json({success: true, message: 'partido creado'}).status(200)
         } catch (error) {

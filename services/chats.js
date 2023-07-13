@@ -6,8 +6,12 @@ class ChatsApi{
         this.chatsDAO = new ChatsDAO(connection)
     }
 
-    async createChat(messages, participants){
-        return await this.chatsDAO.createChat(messages, participants)
+    async createChat(matchId, messages, participants){
+        return await this.chatsDAO.createChat(matchId, messages, participants)
+    }
+
+    async addPlayerToMatchChat(matchId, playerId){
+        return await this.chatsDAO.addPlayerToMatchChat(matchId, playerId)
     }
 
     async newMessageInChat(chatId, message){

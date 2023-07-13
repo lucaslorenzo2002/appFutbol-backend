@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const chatCollection = "chats";
 
 const chatSchema = new mongoose.Schema({
+    matchId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'matches'
+    },
     messages:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'messages'

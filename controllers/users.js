@@ -2,12 +2,14 @@ const asyncHandler = require('express-async-handler');
 const UsersApi = require('../services/users');
 const NotificationsApi = require('../services/notifications');
 const MatchesApi = require('../services/matches');
+const ChatsApi = require('../services/chats');
 
 class UsersController{
     constructor(){
         this.usersApi = new UsersApi()
         this.notificationsApi = new NotificationsApi()
         this.matchesApi = new MatchesApi()
+        this.chatsApi = new ChatsApi()
     }
 
     getAllUsers = asyncHandler(async(req, res) => {
@@ -48,14 +50,15 @@ class UsersController{
     })
 
     aceptMatchInvitation = asyncHandler(async(req, res) => {
-        const jugador = await this.usersApi.getUserById(req.user._id);
-        const partido = await this.matchesApi.getMatchById(req.params.partidoid);
+        const player = await this.usersApi.getUserById(req.user._id);
+        const match = await this.matchesApi.getMatchById(req.params.partidoid);
         const title = 'nuevo jugador en tu equipo';
-        const message = `${jugador.username} ha aceptado la invitacion a tu partido`
-        const to = partido.host
+        const message = `${player.username} ha aceptado la invitacion a tu partido`
+        const to = match.host
         try {            
             await this.usersApi.aceptMatchInvitation(req.params.partidoid, req.params.jugadorid)
             await this.notificationsApi.createNotification(title, message, to)
+            await this.chatsApi.addPlayerToMatchChat(match._id, req.user._id)
             res.json({success: true, message: `user: ${req.user.username} succesfully join match: ${req.params.partidoid}`}).status(200)
         } catch (error) {
             res.json({success: false, message: error}).status(500)

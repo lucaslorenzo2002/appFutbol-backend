@@ -6,12 +6,20 @@ class ChatsDAO{
         this.connection = connection
     }
 
-    async createChat(messages, participants){
+    async createChat(matchId, messages, participants){
             try{
-                return await Chat.create({messages, participants})
+                return await Chat.create({matchId, messages, participants})
             }catch(err){
                 logger.info(err)
             }
+    }
+
+    async addPlayerToMatchChat(matchId, playerId){
+        try{
+            return await MatchChat.updateOne({matchId}, {$push :{participants: playerId}})
+        }catch(err){
+            logger.info(err)
+        }
     }
 
     async newMessageInChat(chatId, message){
@@ -24,7 +32,7 @@ class ChatsDAO{
 
     async getMyChats(userId){
             try{
-                return await Chat.find({participants: userId})       
+                return await Chat.find({participants: userId}).populate('participants')       
             }catch(err){
                 logger.info(err)
             }
